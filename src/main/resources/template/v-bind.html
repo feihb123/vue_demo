@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <p v-text="message"></p>
+    <input type="button"  v-bind:value="message" >
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"v-bind 用来绑定属性"
+        }
+    })
+</script>
+</body>
+</html>

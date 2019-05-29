@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <p v-text="message"></p>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"v-text不存在闪烁问题，但不能在插值表达式前后加数据"
+        }
+    })
+</script>
+</body>
+</html>

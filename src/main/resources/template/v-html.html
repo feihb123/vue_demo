@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-html</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-html="message"></h1>
+    <div v-html="msg"></div>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"v-html可以使用html标签",
+            msg:"<h2>html文本</h2>"
+        }
+    })
+</script>
+</body>
+</html>
