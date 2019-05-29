@@ -10,12 +10,15 @@
 <div  id="app">
     <p v-text="message"></p>
     <input type="button"  v-bind:value="message" >
+    <br><br>
+    <input type="button"  :value="msg" >
 </div>
 <script>
     new Vue({
         el:"#app",
         data:{
-            message:"v-bind 用来绑定属性"
+            message:"v-bind 用来绑定属性",
+            msg:"v-bind 缩写:"
         }
     })
 </script>

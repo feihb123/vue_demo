@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on</title>
+    <script src="../static/vue.min.js"></script>
+    <style>
+        .inner{
+            height: 100px;
+            width: 200px;
+            background: darkturquoise;
+        }
+    </style>
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="stop"></h1>
+    <!--内层事件会触发外层-->
+    <div class="inner" @click="show1">
+        <input type="button"  value="内层点击事件" @click="show2">
+    </div><br>
+    <!--.top 阻止冒泡-->
+    <div class="inner" @click="show1">
+        <input type="button"  value="使用.stop事件修饰符后" @click.stop="show2">
+    </div>
+
+
+    <a  href="http://www.baidu.com" @click="prevent">未使用prevent</a>
+    <br><br>
+    <!--prevent阻止默认事件-->
+    <a  href="http://www.baidu.com" @click.prevent="prevent">使用prevent</a>
+    <br><br>
+    <!--.capture实现捕获触发事件-->
+    <div class="inner" @click.capture="show1">
+        <input type="button"  value="使用.capture事件修饰符后" @click="show2">
+    </div>
+    <br>
+    <!--.self实现点击自己才触发-->
+    <div class="inner" @click.self="show1">
+        <input type="button"  value="只有点击当前元素才触发事件" @click.self="show2">
+    </div>
+    <br>
+    <a  href="http://www.baidu.com" @click.prevent.once="prevent">只能使用一次</a>
+    <br>
+
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            stop:"事件修饰符"
+        },
+        methods:{//定义Vue实例可用方法
+            show1 () {
+                alert("Hello1")
+            },
+            show2 () {
+                alert("Hello2")
+            },
+            prevent () {
+                alert("prevent")
+            }
+        }
+    })
+</script>
+</body>
+</html>

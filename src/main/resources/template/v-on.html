@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <p v-text="message"></p>
+    <input type="button"  value="按钮" v-on:click="show" >
+    <input type="button"  value="按钮" @click="show" >
+    <br><br><br>
+    <input type="button"  value="按钮" v-on:mouseover="show" >
+
+
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"v-on 事件绑定机制"
+        },
+        methods:{//定义Vue实例可用方法
+            show:function () {
+                alert("Hello v-on")
+            }
+        }
+    })
+</script>
+</body>
+</html>

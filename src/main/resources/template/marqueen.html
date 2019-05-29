@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+
+    <input type="button"  value="run!" @click="run" style="zoom: 200%">
+    <input type="button"  value="stop!" @click="stop" style="zoom: 200%">
+    <h1 v-text="message"></h1>
+
+
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"跑马灯RUN!",
+            intervalId: null //定时器id
+        },
+        //定义Vue实例可用方法
+        methods:{
+            run() {
+                if(this.intervalId != null){
+                    return;
+                }
+                this.intervalId = setInterval(() => {
+                    //this.xxx才能使用数据
+                    var start = this.message.substring(0,1)
+                    var end = this.message.substring(1)
+                    this.message = end + start
+                    //VM实例中 会自动监听数据变化并把最新的数据同步到页面中
+                },400)
+            },
+            stop(){
+                clearInterval(this.intervalId)
+                //否则intervalId存在 关闭后不能再次打开
+                this.intervalId = null
+            }
+        }
+    })
+</script>
+</body>
+</html>
