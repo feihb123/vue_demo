@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1>{{message}}</h1>
+    <!--v-bind只能实现数据单向绑定-->
+    <input type="text" :value="message">
+    <br><br>
+    <!--v-model可以实现双向绑定-->
+    <input type="text" v-model="msg">
+</div>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            message:"v-model 双向绑定",
+            msg:"v-model 双向绑定"
+        }
+    })
+</script>
+</body>
+</html>

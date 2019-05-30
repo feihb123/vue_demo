@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>filter</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 >{{msg | filter}}</h1>
+    <h1 >{{msg2 | dateFormat("")}}</h1>
+</div>
+<script>
+    //写在上方  全局过滤器 所有vm实例共享
+    Vue.filter("filter",function (data) {
+        return data.replace(/[1]/g,'2')
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:"filter过滤器",
+            msg:"111222",
+            msg2:new Date()
+        },
+        //私有过滤器
+        filters:{
+            dateFormat:function (data,pattern) {
+                var dt = new Date(data)
+                var y = dt.getFullYear()
+                var m = dt.getMonth() + 1
+                var d = dt.getDate()
+                if(pattern.toLowerCase() === "yyyy-mm-dd"){
+                    return y+"-"+m+"-"+d
+                }else{
+                    var hh = dt.getHours()
+                    var mm = dt.getMinutes()
+                    var ss = dt.getSeconds()
+                    return y+"-"+m+"-"+d+" "+hh+":"+mm+":"+ss
+                    //return "${y}-${m}-${d} ${hh}:${mm}:${ss}"
+                }
+            }
+
+        }
+    })
+
+</script>
+</body>
+</html>

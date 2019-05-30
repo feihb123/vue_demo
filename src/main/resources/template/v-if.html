@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-if</title>
+    <script src="../static/vue.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message"></h1>
+    <button @click="flag = !flag">改变元素</button>
+    <!--v-if每次都会重新删除或创建元素-->
+    <h1 v-if="flag">v-if条件判断</h1>
+    <!--每次不会重新进行DOM的删除和创建操作，只是切换了display:none-->
+    <h1 v-show="flag">v-if条件判断</h1>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"v-if条件判断",
+            flag:true,
+
+        },
+        methods:{
+            change(){
+              this.flag = !this.flag
+            },
+        }
+    })
+</script>
+</body>
+</html>

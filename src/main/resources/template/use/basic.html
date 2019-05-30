@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>综合应用</title>
+    <link rel="stylesheet" href="../../static/bootstrap.min.css">
+    <script src="../../static/vue.js"></script>
+
+</head>
+<body>
+<div  id="app" align="center">
+    <h2 v-text="msg" ></h2>
+    <label>ID
+    <input type="text" class="text" v-model="id">
+    </label>
+    <label>Name
+    <input type="text" class="text" v-model="name">
+    </label>
+    <button class="btn btn-default" @click="add">添加</button>
+    <label>搜索关键词
+    <input type="text" class="text" v-model="key">
+    </label>
+    <table class="table table-bordered table-striped table-hover" style="width: 60%">
+        <thead>
+        <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>time</th>
+        <th>operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in search2(key)" :key="item.id">
+            <td v-text="item.id"></td>
+            <td v-text="item.name"></td>
+            <td >{{item.time | dateFormat("") }}</td>
+            <td ><a href="" @click.prevent="del">删除</a></td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<script>
+    Vue.filter('dateFormat',function (data,pattern) {
+        var dt = new Date(data)
+        var y = dt.getFullYear()
+        var m = dt.getMonth() + 1
+        var d = dt.getDate()
+        if(pattern.toLowerCase() === "yyyy-mm-dd"){
+            return y+"-"+m+"-"+d
+        }else{
+            var hh = dt.getHours()
+            var mm = dt.getMinutes()
+            var ss = dt.getSeconds()
+            return y+"-"+m+"-"+d+" "+hh+":"+mm+":"+ss
+            //return "${y}-${m}-${d} ${hh}:${mm}:${ss}"
+        }
+
+
+    })
+    var vue = new Vue({
+        el:"#app",
+        data:{
+            id:"",
+            name:"",
+            key:"",
+            msg:"综合应用",
+            list:[
+                {id:1,name:"保时捷",time:new Date()},
+                {id:2,name:"玛莎拉蒂",time:new Date()}
+            ]
+        },
+        methods:{
+            add(){
+                var obj = {id:this.id,name:this.name,time:new Date()}
+                this.list.push(obj)
+                this.id = ""
+                this.name = ""
+            },
+            del(id){
+                var index = this.list.findIndex(item=>{
+                    if(item.id == id){
+                        return true;
+                    }
+                })
+                this.list.splice(index)
+            },
+            search(key){
+                var objs =[];
+                this.list.forEach(item => {
+                    if(item.name.indexOf(key) != -1){
+                        objs.push(item)
+                    }
+                })
+                return objs;
+            },
+            search2(key){
+                return this.list.filter(item => {
+                    if(item.name.includes(key)){
+                        return item
+                    }
+                })
+            }
+        }
+    })
+
+
+
+</script>
+</body>
+</html>

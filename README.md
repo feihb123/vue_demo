@@ -5,6 +5,12 @@
 - v-cloak/v-text/v-html
 - v-bind  简写 :
 - v-click 简写 @
+- v-model
+- v-if
+- v-for
 - 跑马灯
 - 事件修饰符
-- 
+- class
+- style
+- 过滤器
+- 综合应用
