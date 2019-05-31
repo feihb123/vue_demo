@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="../static/vue.js"></script>
+    <script src="../static/axios.js"></script>
+</head>
+<body>
+<div id="app">
+<h1 v-text="msg"></h1>
+<h1 id="hero"></h1>
+</div>
+<script>
+    axios.get("url").then(function (response) {
+        var jsonObject = response.data;
+        var jsonString = JSON.stringify(jsonObject)
+        document.getElementById("hero").innerHTML = "通过 axios 获取到的json数据："+ jsonString;
+    })
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"使用axios发送ajax",
+        }
+    })
+</script>
+</body>
+</html>

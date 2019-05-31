@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message"></h1>
+    <product></product>
+    <product></product>
+    <pro name="Vue!" number="10"></pro>
+    <br>
+    <pros v-for="item in products" v-bind:product="item"></pros>
+</div>
+<script>
+    //全局组件
+    Vue.component("pro",{
+            props:["name","number"],
+            template: "<div @click='increase'>{{name}}+{{number}}</div>",
+            methods:{
+                increase(){
+                    this.number++;
+                }
+            }
+    })
+    Vue.component("pros",{
+            props:["product"],
+            template: "<div @click='increase'>{{product.name}}+{{product.number}}</div>",
+            methods:{
+                increase(){
+                    this.product.number++;
+                }
+            }
+    })
+    
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:"Vue组件 ",
+            products:[
+                {name:"第1个",number:"1"},
+                {name:"第2个",number:"2"},
+                {name:"第3个",number:"3"},
+                ]
+        },
+        components:{
+            "product":{
+                template:"<div>Vue组件</div>"
+            }
+        },
+
+    })
+</script>
+</body>
+</html>
