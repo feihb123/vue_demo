@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按键修饰符</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message"></h1>
+    <input type="text"  @keyup.enter="change1">
+    <br>
+    <input type="text" @keyup.f2="change2">
+</div>
+<script>
+    //自定义全局按键符
+    Vue.config.keyCodes.f2 = 113
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:"按键修饰符",
+            msg:"检测到按键回车",
+            val:"检测到按键F2"
+        },
+        methods:{
+            change1(){
+                this.message = this.msg
+            },
+            change2(){
+                this.message = this.val
+            }
+        }
+    })
+</script>
+</body>
+</html>

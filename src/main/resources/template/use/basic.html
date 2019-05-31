@@ -14,7 +14,7 @@
     <input type="text" class="text" v-model="id">
     </label>
     <label>Name
-    <input type="text" class="text" v-model="name">
+    <input type="text" class="text" v-model="name" @keyup.enter="add">
     </label>
     <button class="btn btn-default" @click="add">添加</button>
     <label>搜索关键词

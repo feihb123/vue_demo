@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message" ></h1>
+    <span v-text="msg" v-fontweight="500" v-size="30"></span>
+    <input type="text" v-focus v-color >
+</div>
+<script>
+    //  Vue.directive定义全局指令
+    // 参数1：指令名称  定义不加v- 但调用需要 v- xx
+    // 参数2： 是一个读写，有一些相关函数，可以在特定的阶段执行相关操作
+    Vue.directive("focus",{
+        //每当指令绑定到元素上 执行  只执行一次
+        bind:function (el) {
+            //第一次参数都是el 表示被绑定指令的元素
+            //刚绑定指令的时候还没有插入到DOM中去这时候调用focus没有作用
+            //一般用于样式相关操作
+        },
+        //元素插入到DOM中会执行  只执行一次
+        inserted:function (el) {
+            //一般用于JS相关操作
+            el.focus()
+        },
+        //VNode更新时触发，可触发多次
+        updated:function () {
+
+        }
+    })
+    Vue.directive("color",{
+        //只要通过bind绑定，不管有没有插入页面，这个元素都有一个内联样式
+        bind:function (el) {
+            el.style.color = "red";
+        }
+    })
+    //自定义指令简写  bind和updated
+    Vue.directive("size",function (el,binding) {
+        el.style.fontSize = parseInt(binding.value)+"px"
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:"自动获得焦点",
+            msg:"私有自定义指令"
+        },
+        directives:{
+            'fontweight':{
+                bind:function (el,binding) {
+                    el.style.fontWeight = binding.value
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
