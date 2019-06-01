@@ -9,12 +9,19 @@
 <body>
 <div  id="app">
     <h1 v-text="message"></h1>
-    <product></product>
+    <product v-bind:msg="message"></product>
     <product></product>
     <pro name="Vue!" number="10"></pro>
     <br>
     <pros v-for="item in products" v-bind:product="item"></pros>
+    <template1></template1>
 </div>
+
+<template id="t1">
+    <div>
+        <h1>使用template标签作为模板</h1>
+    </div>
+</template>
 <script>
     //全局组件
     Vue.component("pro",{
@@ -48,9 +55,14 @@
                 ]
         },
         components:{
+            "template1":{
+                template:"#t1"
+            },
             "product":{
-                template:"<div>Vue组件</div>"
-            }
+                template:"<div>Vue组件{{msg}}</div>",
+                props:["msg"]
+            },
+
         },
 
     })
