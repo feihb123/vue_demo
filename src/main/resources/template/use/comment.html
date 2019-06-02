@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>comment</title>
+    <link rel="stylesheet" href="../../static/bootstrap.min.css">
+    <script src="../../static/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <comment-box @update="loadComments">
+
+    </comment-box>
+
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in list" :key="item.id">
+            <span class="badge">评论人:{{ item.user }}</span>
+            {{ item.content }}
+        </li>
+    </ul>
+
+</div>
+<template id='temp1' >
+    <div>
+        <div class="form-group">
+            <label>评论人：</label>
+            <input type="text"  class="form-control" v-model="user">
+        </div>
+        <div class="form-group">
+            <label>评论内容：</label>
+            <textarea class="form-control" v-model="content"></textarea>
+        </div>
+        <div class="form-group" >
+            <input type="button" value="发表评论" class="btn btn-primary" @click="postComment">
+        </div>
+    </div>
+</template>
+<script>
+    var commentBox = {
+        template: '#temp1',
+        data(){
+            return {
+                user: '',
+                content: ''
+            }
+        },
+        methods: {
+            postComment(){
+
+                var comment = {id: Date.now(), user: this.user, content: this.content}
+                var list = JSON.parse(localStorage.getItem('cmts') || '[]')
+                list.push(comment)
+                localStorage.setItem('cmts', JSON.stringify(list))
+
+                this.user = this.content = ''
+                this.$emit('update')
+
+            }
+        },
+    }
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                {id: 1, user:'李白', content: '天生我才必有用'},
+                {id: 2, user:'林则徐', content:'岂因祸福避趋之'},
+                {id: 3, user:'蛤', content:'苟利国家生死以'}
+            ]
+        },
+        created() {
+            this.loadComments()
+        },
+        methods: {
+            loadComments(){
+                var list = JSON.parse(localStorage.getItem('cmts') || '[]')
+                this.list = list
+            }
+        },
+        components:{
+            'comment-box':commentBox
+        }
+    })
+</script>
+
+</body>
+</html>

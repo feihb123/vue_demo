@@ -5,6 +5,23 @@
     <title>router</title>
     <script src="../static/vue.js"></script>
     <script src="../static/vue-router.js"></script>
+
+    <style>
+        /*给选中的标签加样式 前一个为不指定默认class*/
+        .router-link-active,.myStyle{
+            color: red;
+            font-weight: 100;
+            font-size: 20px;
+        }
+
+        .v-enter,.v-leave-to{
+            opacity: 0;
+            transform: translateX(140px);
+        }
+        .v-enter-active,.v-leave-active{
+            transition:all 0.5s ease;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -13,53 +30,67 @@
         <tr>
             <td><router-link to="/user">用户管理</router-link></td>
             <td><router-link to="/pro">产品管理</router-link></td>
-            <td><router-link to="/order">订单管理</router-link></td>
+
+            <!-- to="/order?id=12" -->
+            <td><router-link to="/order/12">订单管理</router-link></td>
+            <td><a href="#/user">另一种方式</a></td>
 
         </tr>
     </table>
 
-    <div>
-        <!--
-            点击上面的/user,那么/user 对应的内容就会显示在router-view 这里
-         -->
+    <transition mode="out-in">
         <router-view></router-view>
-    </div>
+    </transition>
 
 </div>
 
+<!--放在div#app外 不然会直接显示-->
+<template id='pro'>
+    <div>
+        <p>产品管理页面的内容</p>
+        <router-link to='/pro/child'>子页面</router-link>
+        <router-view></router-view>
+    </div>
+</template>
 
 <script>
-    /*
-* 申明三个模板( html 片段 )
-*/
+
     var user = { template: '<p>用户管理页面的内容</p>' };
-    var pro = { template: '<p>产品管理页面的内容</p>' };
-    var order = { template: '<p>订单管理页面的内容</p>' };
-    /*
-    * 定义路由
-    */
-    var routes = [
-        { path: '/', redirect: '/user'}, // 这个表示会默认渲染 /user，没有这个就是空白
-        { path: '/user', component: user },
-        { path: '/pro', component: pro },
-        { path: '/order', component: order }
-    ];
-    /*
-    * 创建VueRouter实例
-    */
+
+    var pro = { template: "#pro"};
+
+    var proChild = { template: '<p>产品管理下的子页面内容</p>' };
+
+    var order = { template: '<p>订单管理页面的内容{{$route.params.id}}</p>' };
+
+
+
     var router = new VueRouter({
-        routes:routes
+        routes:[
+            { path: '/', redirect: '/user'}, // 这个表示会默认渲染 /user，没有这个就是空白
+            { path: '/user', component: user },
+            { path: '/pro', component: pro ,children:[
+                //children中不能带/
+                    {path: 'child', component: proChild}
+                ]},
+            /*  :xx 用来传参 */
+            { path: '/order/:id', component: order }
+        ],
+        linkActiveClass:"myStyle"
     });
-    /*
-    * 给vue对象绑定路由
-    */
+
+
     new Vue({
         el:"#app",
         data:{
             msg:"Vue路由"
         },
+        /*router:router*/
         router
     })
 </script>
+
+
+
 </body>
 </html>

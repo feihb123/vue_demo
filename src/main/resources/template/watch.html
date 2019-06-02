@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>watch</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message"></h1>
+    <input type="text" v-model="msg">
+    <input type="text" v-model="msg">
+    <input type="text" v-model="add">
+
+
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"watch",
+            msg:""
+        },
+        watch:{
+            msg:function () {
+                console.log("检测到改变")
+
+            }
+        },
+        computed:{
+            // v-model 直接使用add即可（当做普通属性）
+            // function内部任何数据改变都会触发重新求值
+            add:function () {
+                return this.msg +" "+ this.msg;
+            }
+        }
+    })
+</script>
+</body>
+</html>

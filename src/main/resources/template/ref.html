@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref</title>
+    <script src="../static/vue.min.js"></script>
+
+</head>
+<body>
+<div  id="app">
+    <h1 v-text="message"></h1>
+    <h1 ref="ref">具体内容</h1>
+    <button @click="show">获取DOM内容</button>
+    <br>
+    <login ref="login"></login>
+</div>
+<script>
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:"ref获取DOM内容"
+        },
+        methods:{
+            show(){
+                console.log(this.$refs.ref.innerText);
+                console.log(this.$refs.login.msg);
+
+                this.$refs.login.show()
+            }
+        },
+        components: {
+           login:{
+               template:"<h1>这里是模板内容</h1>",
+               data(){
+                   return {
+                       msg:"模板内容"
+                   }
+               },
+               methods: {
+                   show(){
+                       console.log("调用了组件show方法")
+                   }
+               }
+           }
+        }
+    })
+</script>
+</body>
+</html>
