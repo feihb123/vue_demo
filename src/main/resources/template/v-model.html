@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,14 @@
     <input type="text" :value="message">
     <br><br>
     <!--v-model可以实现双向绑定-->
-    <input type="text" v-model="msg">
+    <input type="text" v-model="message">
 </div>
-<script>
+<script> 
     var vm = new Vue({
         el:"#app",
         data:{
             message:"v-model 双向绑定",
-            msg:"v-model 双向绑定"
+            msg:"v-bind 单向绑定"
         }
     })
 </script>
